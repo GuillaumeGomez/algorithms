@@ -26,10 +26,12 @@ FILES=		src/main.c \
 		src/bubble.c \
 		src/merge.c
 
+RM=		rm -f
+
 $(NAME):
 	gcc $(OPTIONS) $(FILES) -o $(NAME)
 
 clean:
-	rm $(NAME)
+	$(RM) $(NAME)
 
 re: clean $(NAME)
