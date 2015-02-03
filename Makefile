@@ -23,8 +23,9 @@ OPTIONS=	-O2 -Wall -Wextra
 NAME=		algo
 
 FILES=		src/main.c \
-		src/bubble.c \
-		src/merge.c
+			src/bubble.c \
+			src/merge.c \
+			src/quick.c
 
 RM=		rm -f
 

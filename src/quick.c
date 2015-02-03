@@ -1,24 +1,58 @@
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
 #include "algo.h"
 
-void move_values(int *tb, int pivot) {
-    int i = pivot - 1;
-    int new_limit = pivot;
-    int value = tb[pivot];
+void intern_quick_sort(int *array, int size, int *copy);
 
-    while (i >= 0) {
-        if (tb[i] > value) {
-            tb[pivot] = tb[i];
-            tb[i] = value;
-            pivot = i;
-        }
-        ++i;
-    }
+bool is_ordered(int *tb, int size) {
+    int i = -1;
+
+    while (++i < size - 1)
+        if (tb[i] > tb[i + 1])
+            return false;
+    return true;
 }
 
-void quick_sort(int *array, int size) {
+void move_values(int *tb, int pivot, int size, int *copy) {
+    if (is_ordered(tb, size) == true)
+        return;
+    int i = size - 1;
+    int x = pivot - 1;
+    int value = tb[pivot];
+
+    while (i > pivot) {
+        copy[i] = tb[i];
+        --i;
+    }
+    while (x >= 0) {
+        if (tb[x] > value)
+            copy[i--] = tb[x];
+        --x;
+    }
+    copy[i--] = value;
+    x = pivot - 1;
+    while (x >= 0) {
+        if (tb[x] <= value)
+            copy[i--] = tb[x];
+        --x;
+    }
+    memcpy(tb, copy, sizeof(*copy) * size);
+    intern_quick_sort(tb, pivot, copy);
+}
+
+void intern_quick_sort(int *array, int size, int *copy) {
     // I know it's not the best way to take the last element as pivot to start,
     // I'll look after another method to choose one
     int pivot = size - 1;
 
-    move_values(array, pivot);
+    move_values(array, pivot, size, copy);
+}
+
+void quick_sort(int *array, int size) {
+    int *copy = malloc(sizeof(*copy) * size);
+
+    while (is_ordered(array, size) == false)
+        intern_quick_sort(array, size, copy);
+    free(copy);
 }
