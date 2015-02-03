@@ -17,14 +17,10 @@ bool is_ordered(int *tb, int size) {
 void move_values(int *tb, int pivot, int size, int *copy) {
     if (is_ordered(tb, size) == true)
         return;
-    int i = size - 1;
+    int i = pivot;
     int x = pivot - 1;
     int value = tb[pivot];
 
-    while (i > pivot) {
-        copy[i] = tb[i];
-        --i;
-    }
     while (x >= 0) {
         if (tb[x] > value)
             copy[i--] = tb[x];
@@ -37,7 +33,7 @@ void move_values(int *tb, int pivot, int size, int *copy) {
             copy[i--] = tb[x];
         --x;
     }
-    memcpy(tb, copy, sizeof(*copy) * size);
+    memcpy(tb, copy, sizeof(*copy) * (pivot + 1));
     intern_quick_sort(tb, pivot, copy);
 }
 
