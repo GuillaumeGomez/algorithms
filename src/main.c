@@ -6,7 +6,7 @@
 
 #include "algo.h"
 
-#define TB_SIZE 10
+#define TB_SIZE 25000
 
 int cmp(void *a, void *b) {
     int *x = a, *y = b;
