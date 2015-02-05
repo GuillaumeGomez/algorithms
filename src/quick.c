@@ -3,44 +3,62 @@
 #include <stdbool.h>
 #include "algo.h"
 
-void intern_quick_sort(int *array, int size);
-
-bool is_ordered(int *tb, int size) {
+int is_ordered(int *tb, int size) {
     int i = -1;
 
+    printf("size: %d\n", size);
+    if (size < 2)
+        return -1;
     while (++i < size - 1)
         if (tb[i] > tb[i + 1])
-            return false;
-    return true;
+            return i + 1;
+    printf("return -1 !\n");
+    return -1;
 }
 
-void move_values(int *tb, int pivot, int size) {
-    if (is_ordered(tb, size) == true)
-        return;
-    int x = pivot - 1;
+int move_values(int *tb, int pivot, int size, int *copy) {
+    int end = size - 1;
     int value = tb[pivot];
-    int ac = pivot;
+    int ac = size - 1;
+    int save = 0;
 
-    while (x >= 0) {
-        if (tb[x] > value) {
-            tb[ac] = tb[x];
-            tb[x] = value;
-            ac = x;
+    printf("Chosen %d\n", value);
+    while (ac >= 0) {
+        if (ac != pivot && tb[ac] > value) {
+            copy[end--] = tb[ac];
         }
-        --x;
+        --ac;
     }
-    intern_quick_sort(tb, pivot);
-}
-
-void intern_quick_sort(int *array, int size) {
-    // I know it's not the best way to take the last element as pivot to start,
-    // I'll look after another method to choose one
-    int pivot = size - 1;
-
-    move_values(array, pivot, size);
+    save = end;
+    copy[end--] = value;
+    ac = size - 1;
+    while (ac >= 0) {
+        if (ac != pivot && tb[ac] < value) {
+            copy[end--] = tb[ac];
+        }
+        --ac;
+    }
+    int x = -1;
+    while (++x < size)
+        printf("%d ", copy[x]);
+    printf("\n");
+    memcpy(tb, copy, size * sizeof(*copy));
+    return save;
 }
 
 void quick_sort(int *array, int size) {
-    while (is_ordered(array, size) == false)
-        intern_quick_sort(array, size);
+    int *copy = malloc(sizeof(*array) * size);
+
+    int pivot = move_values(array, size - 1, size, copy);
+    int tmp = pivot;
+
+    printf("pivot = %d\n", pivot);
+    for (tmp = pivot; tmp != -1; tmp = is_ordered(array, pivot)) {
+        printf("TMMMMMMP %d\n", tmp);
+        move_values(array, tmp, size - pivot, copy);
+    }
+    printf("out !\n");
+    for (tmp = size - 1; tmp != -1; tmp = is_ordered(array + pivot, size - pivot))
+        move_values(array + pivot, tmp, size - pivot, copy);
+    free(copy);
 }

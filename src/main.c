@@ -6,7 +6,7 @@
 
 #include "algo.h"
 
-#define TB_SIZE 25000
+#define TB_SIZE 10
 
 int cmp(void *a, void *b) {
     int *x = a, *y = b;
@@ -73,7 +73,7 @@ int main() {
     printf("Initialization done.\n");
     calls("reversed array", tb, TB_SIZE);
     for (i = 0; i < TB_SIZE; ++i)
-        tb[i] = rand() % 100000;
+        tb[i] = rand() % 20;
     calls("random array", tb, TB_SIZE);
     return 0;
 }
