@@ -3,54 +3,38 @@
 #include <stdbool.h>
 #include "algo.h"
 
-int is_ordered(int *tb, int size) {
-    int i = -1;
+static void swap(int *a, int *b) {
+    int c;
 
-    if (size < 2)
-        return -1;
-    while (++i < size - 1)
-        if (tb[i] > tb[i + 1])
-            return i + 1;
-    return -1;
+    c = *a;
+    *a = *b;
+    *b = c;
 }
 
-int move_values(int *tb, int pivot, int size, int *copy) {
-    if (size < 2)
-        return 0;
-    int end = size;
-    int value = tb[pivot];
-    int ac = size - 1;
-    int save = 0;
+void sort(int *array, int begin, int end) {
+    static int pivot;
 
-    while (ac >= 0 && end > 0) {
-        if (ac != pivot && tb[ac] > value) {
-            copy[--end] = tb[ac];
-        }
-        --ac;
-    }
-    save = end;
-    if (end > 0)
-        copy[--end] = value;
-    ac = size - 1;
-    while (ac >= 0 && end > 0) {
-        if (ac != pivot && tb[ac] <= value) {
-            copy[--end] = tb[ac];
-        }
-        --ac;
-    }
-    memcpy(tb, copy, size * sizeof(*copy));
-    return save;
+    if (end > begin) {
+        int l = begin + 1;
+        int r = end;
+        swap(&array[begin], &array[begin + (end - begin) / 2]);
+        pivot = array[begin];
+
+        while (l < r) {
+            if (array[l] <= pivot) {
+                l++;
+            } else {
+                while (l < --r && array[r] >= pivot);
+                swap(&array[l], &array[r]); 
+            }
+      }
+      l--;
+      swap(&array[begin], &array[l]);
+      sort(array, begin, l);
+      sort(array, r, end);
+   }
 }
 
 void quick_sort(int *array, int size) {
-    int *copy = malloc(sizeof(*array) * size);
-    int pivot = move_values(array, size - 1, size, copy);
-    int tmp;
-
-    for (tmp = pivot; tmp != -1; tmp = is_ordered(array, pivot)) {
-        move_values(array, tmp - 1, pivot, copy);
-    }
-    for (tmp = size - pivot - 1; tmp != -1; tmp = is_ordered(array + pivot, size - pivot))
-        move_values(array + pivot, tmp - 1, size - pivot, copy);
-    free(copy);
+    sort(array, 0, size);
 }
