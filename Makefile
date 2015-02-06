@@ -25,7 +25,8 @@ NAME=		algo
 FILES=		src/main.c \
 			src/bubble.c \
 			src/merge.c \
-			src/quick.c
+			src/quick.c \
+			src/insertion.c
 
 RM=		rm -f
 

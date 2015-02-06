@@ -6,7 +6,7 @@
 
 #include "algo.h"
 
-#define TB_SIZE 25
+#define TB_SIZE 10000
 
 int cmp(void *a, void *b) {
     int *x = a, *y = b;
@@ -54,11 +54,13 @@ float profile_function(int *tb, int size, void(*func)(int*, int)) {
 
 void calls(const char *begin_str, int *array, int size) {
     printf("\033[36;1m=== Launch with %s: ===\033[0m\n", begin_str);
-    printf("\033[33;1m=> bubble sort: worst = n^2 | best = n | average = n^2\033[0m\n");
+    printf("\033[33;1m=> bubble sort   : worst = n^2 | best = n | average = n^2\033[0m\n");
     printf("%f secs\n", profile_function(array, size, bubble_sort));
-    printf("\033[33;1m=> merge sort : worst = n log n | best = n log n | average = n log n\033[0m\n");
+    printf("\033[33;1m=> merge sort    : worst = n log n | best = n log n | average = n log n\033[0m\n");
     printf("%f secs\n", profile_function(array, size, merge_sort));
-    printf("\033[33;1m=> quick sort : worst = n^2 | best = n log n | average = n log n\033[0m\n");
+    printf("\033[33;1m=> insertion sort: worst = n^2 | best = n | average = n^2\033[0m\n");
+    printf("%f secs\n", profile_function(array, size, insertion_sort));
+    printf("\033[33;1m=> quick sort    : worst = n^2 | best = n log n | average = n log n\033[0m\n");
     printf("%f secs\n", profile_function(array, size, quick_sort));
 
     printf("original qsort: %f secs\n", p(array, size));
