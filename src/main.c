@@ -62,6 +62,8 @@ void calls(const char *begin_str, int *array, int size) {
     printf("%f secs\n", profile_function(array, size, insertion_sort));
     printf("\033[33;1m=> shell sort    : worst = n^2 | best = n log^2 n | average = n log^2 n or n^(3/2)\033[0m\n");
     printf("%f secs\n", profile_function(array, size, shell_sort));
+    printf("\033[33;1m=> tree sort     : worst = n^2 (unbalanced) / n log n (balanced) | best = n (unbalanced) / n log n (balanced) | average = n log n\033[0m\n");
+    printf("%f secs\n", profile_function(array, size, shell_sort));
     printf("\033[33;1m=> quick sort    : worst = n^2 | best = n log n | average = n log n\033[0m\n");
     printf("%f secs\n", profile_function(array, size, quick_sort));
 

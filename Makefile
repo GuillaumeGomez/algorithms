@@ -27,7 +27,8 @@ FILES=		src/main.c \
 			src/merge.c \
 			src/quick.c \
 			src/insertion.c \
-			src/shell.c
+			src/shell.c \
+			src/tree.c
 
 RM=		rm -f
 
