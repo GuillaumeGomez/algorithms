@@ -26,7 +26,8 @@ FILES=		src/main.c \
 			src/bubble.c \
 			src/merge.c \
 			src/quick.c \
-			src/insertion.c
+			src/insertion.c \
+			src/shell.c
 
 RM=		rm -f
 
