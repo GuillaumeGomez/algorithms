@@ -28,7 +28,8 @@ FILES=		src/main.c \
 			src/quick.c \
 			src/insertion.c \
 			src/shell.c \
-			src/tree.c
+			src/tree.c \
+			src/patience.c
 
 RM=		rm -f
 

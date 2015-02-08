@@ -6,7 +6,7 @@
 
 #include "algo.h"
 
-#define TB_SIZE 10000
+#define TB_SIZE 100
 
 int cmp(void *a, void *b) {
     int *x = a, *y = b;
@@ -64,6 +64,8 @@ void calls(const char *begin_str, int *array, int size) {
     printf("%f secs\n", profile_function(array, size, shell_sort));
     printf("\033[33;1m=> tree sort     : worst = n^2 (unbalanced) / n log n (balanced) | best = n (unbalanced) / n log n (balanced) | average = n log n\033[0m\n");
     printf("%f secs\n", profile_function(array, size, shell_sort));
+    printf("\033[33;1m=> patience sort : worst = n log n | best = n | average = _\033[0m\n");
+    printf("%f secs\n", profile_function(array, size, patience_sort));
     printf("\033[33;1m=> quick sort    : worst = n^2 | best = n log n | average = n log n\033[0m\n");
     printf("%f secs\n", profile_function(array, size, quick_sort));
 
