@@ -60,7 +60,7 @@ int remove_last_from_stack(pile_container *piles, int i) {
 }
 
 void reorder_piles(pile_container *piles) {
-    int i = piles->size - 1;
+    int i = piles->size - 2;
 
     if (piles->size < 2)
         return;
