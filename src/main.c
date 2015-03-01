@@ -75,7 +75,7 @@ void calls(const char *begin_str, int *array, int size) {
 int main() {
     int tb[TB_SIZE], i = 0;
 
-    srand(time(NULL));
+    srand(1010); // to always generate the same random array
     for (; i < TB_SIZE; ++i)
         tb[i] = TB_SIZE - i;
     printf("Initialization done.\n");
